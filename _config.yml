@@ -18,10 +18,10 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Monos
+title: devin的博客
 email: andy129408@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  欢迎来到devin7788的博客
+  欢迎您的到来...
 # baseurl: "/" # the subpath of your site, e.g. /blog
 # url: "http://devin7788.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username: devin7788
