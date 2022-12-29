@@ -2,7 +2,7 @@
 layout: post
 title: 我的博客
 date: 2022-12-29 09:39:23 +0800
-category: sample
+category: 生活
 ---
 # post-sample
 欢迎来到我的博客...
