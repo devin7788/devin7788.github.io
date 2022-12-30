@@ -18,10 +18,10 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: devin's blog
+title: 星空-StarrySky
 email: andy129408@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  欢迎您的到来...
+  welcome...
 # baseurl: "/" # the subpath of your site, e.g. /blog
 # url: "http://devin7788.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username: devin7788
@@ -30,7 +30,7 @@ svg:
   optimize: true
 # Build settings
 # theme: minima
-highlighter-theme: monokai
+highlighter-theme: github
 date_format: "%Y-%M-%D"
 plugins:
   - jekyll-feed
