@@ -11,3 +11,5 @@ category: About
 邮箱地址: andy129408@gmail.com
 
 微信号: devinjoy
+
+熟悉的开发语言: Go/Java/Python/C++/Rust
