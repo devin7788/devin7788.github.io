@@ -8,74 +8,72 @@ category: Web
 最近心血来潮, 折腾了一下如何用github建个人博客。github官网给出了方案,
 就是使用jekyll进行建站。下面说说我建站的心路历程吧, 中间折腾了一大圈。
 
-> 1.在github开辟一个公有库, 开通自己的站点名字, 一般xxx.github.io
->
-> 2.在[jekyll官网](http://jekyllthemes.org/)找一个自己喜欢的主题, 将对应的代码
-> 克隆到自己的库，然后修改成自己的喜欢的站点名字, 并且commit到github上, 在浏览器
-> 上输入xxx.github.io, 也就是你刚才修改的站点名字, 查看你的个人博客效果。
->
-> 3.每修改一下,必须提交到github上，我才能看到效果, 好麻烦啊, 如何能修改后就能看呢?
-> 开始研究官网的教程, 敲入一下四个命令，就可以看了:
-> ```awk
-> gem install bundler jekyll
-> jekyll new my-awesome-site
-> cd my-awesome-site
-> bundle exec jekyll serve
-> ```
-> 仔细分析这四个命令, 不难发现, 第一个是安装第三方库, 第二个用安装好的工具jekyll创建一个工程
-> , 这个和用cargo, rust项目管理工具一样的。第三个命令，也就是cd到刚才建的目录。第四个命令,运行
-> 这个项目, 有点像npm install, npm run serve, 分析一下bundle应该是运行工具,exec是执行,
-> jekyll是网站工具, serve就是运行, 也就是把这个网站运行起来, 然后浏览器就可以访问了。
->
-> 4.碰到环境难题, 调研gem, 通过搜索, 发现gem是ruby的一个包管理工具, 在安装gem之前, 得安装
-> ruby环境。因为我用的笔记本是windows, 开始入坑ruby的各种纠结的环境问题。先下载ruby,选了
-> 最新版本进行下载, 完了之后, 开始安装rubygems, 也安装好了, 一切看起来是非常顺利。
->
-> 5.遇到了执行问题, 运行gem install bundler jekyll, 安装也ok。运行bundle exec jekyll serve
-> 开始语法报错，这是什么情况? 怎么会语法报错呢?又重新卸载, 安装了下低的版本, 不是包装不上就是
-> 下载第三方软件下不下来，其中有一个库ffi, 死活下不下来。因为我换了rubychina的镜像, 说是找不到,
-> 换回官方的下载地址又访问不了, 又折腾了好几个小时。
->
-> 6.准备放弃, 柳暗花明又一村, 通过各种搜索，有一种叫做rvm的工具，可以进行ruby的版本管理。这种类似的工具，
-> 我以前好像用过, 对了, 叫做nvm, 也就是node的版本管理工具, 感觉rvm和nvm非常非常像, 就像是一个模子里面
-> 出来的。当时，我是用nvm下载node_modules的环境, 也是node版本问题, 后来修改到官方推荐的版本后, 最终修复
-> 了node的版本问题。说干就干, 开始在windows上安装rvm, 说来也奇怪, rvm在windows上就是安装不上去, 也是
-> 各种报错, 又开始放弃了, 仔细阅读了下rvm的介绍, 基本都是在Linux环境上跑的脚本。无奈之下，转战Linux环境的
-> 搭建, 服务器开发真心不适合在windows上搭建啊, 搞了一圈各种问题。
->
-> 7.还好，手上正好有一台Centos服务器, 就是平时用来练手搭环境, 编译项目用的。上来准备安装yum install ruby,
-> 结果发现系统已经安装好了ruby, 然后再安装rubygems, 结果也发现安装好了, 那正好。这下环境都有，果然还是Linux
-> 方便, 直接运行gem install bundler jekyll, 结果, 提示ruby版本不够。这里, 我要吐槽一下jekyll, 在windows上
-> 安装的时候怎么不提示啥呢, 除了语法报错, 啥都没有, 这里我猜测人家可能也是Linux环境, 还有一个就是文档不全, 所以，
-> 作为服务器开发人员, 最好能在Linux上进行环境搭建最好, windows上折腾真的很麻烦, 网站打不开不说, 遇到问题, 搜不到
-> 相关的解决方案。
->
-> 8.重新启程, 搞定了ruby环境, 有了之前的趟坑精力，这次就直接安装rvm, rvm在Linux上下载不下来，我先在windows上下载
-> 好, 然后传上去, 最后搞定了rvm的安装。接下来升级ruby到ruby-2.6, 因为刚才提示说至少得ruby2.6的版本。升级到ruby2.6
-> 之后, 又运行gem install bundler jekyll, 然后提示bundler版本不足。这，感觉就像连环锁，一环套一环啊, 这个时候
-> 都快下班了, 晚上回去再弄。
->
-> 9.开始更新bundler版本, 说是要运行gem update --system, 然后我把bundler升级到了3.4.1，升级到更高的版本了, 然后
-> 用bundler安装了一个库，又提示ruby版本不足, 需要ruby2.7, 这下无语了，刚才提示干嘛去了, 不是说好ruby2.6就可以了么,
-> 然后用rvm uninstall ruby2.6, rvm install ruby2.7, 这下ruby版本也好了。安装bundler第三方库，也好了。重新运行
-> gem install bundler jekyll, 时间很长，起身转了一下，回来发现都下载好了。
->
-> 10.网站端口还有主机问题, bundle exec jekyll serve直接默认以4000的端口和本地的地址启动的, curl localhost:4000
-> 有返回正常网页,总不能在Linux里面查看网页效果吧。思索如何解决,外网访问问题以及如何用指定端口和host启动。发现以localhost
-> 启动的网站在外网是不能访问的。
->
-> 11.解决外网访问以及端口和主机地址问题, bundle exec jekyll serve --port 4000 --host 0.0.0.0, 这样指定了端口和
-> 主机, host是4个0, 这样外网可以访问, 我开了下防火墙, 这样在浏览器上也可以直接访问网页信息了, 搞定。
->
-> 12.代码同步和修改生效的问题, 因为我买的是jetbrain的IDE, 他有自动同步网页代码到远程Linux的工具，所以可以很快同步代码
-> 到远程的Linux服务器, bundle exec jekyll serve运行起来的网站, 只要网页有修改就自动热更新了, 很方便, 改完之后
-> ctrl+f5强制刷新, 就可以看到网页界面了。
->
+1.在github开辟一个公有库, 开通自己的站点名字, 一般xxx.github.io
+
+2.在[jekyll官网](http://jekyllthemes.org/)找一个自己喜欢的主题, 将对应的代码
+克隆到自己的库，然后修改成自己的喜欢的站点名字, 并且commit到github上, 在浏览器
+上输入xxx.github.io, 也就是你刚才修改的站点名字, 查看你的个人博客效果。
+
+3.每修改一下,必须提交到github上，我才能看到效果, 好麻烦啊, 如何能修改后就能看呢?
+开始研究官网的教程, 敲入一下四个命令，就可以看了:
+```awk
+gem install bundler jekyll
+jekyll new my-awesome-site
+cd my-awesome-site
+bundle exec jekyll serve
+```
+仔细分析这四个命令, 不难发现, 第一个是安装第三方库, 第二个用安装好的工具jekyll创建一个工程
+, 这个和用cargo, rust项目管理工具一样的。第三个命令，也就是cd到刚才建的目录。第四个命令,运行
+这个项目, 有点像npm install, npm run serve, 分析一下bundle应该是运行工具,exec是执行,
+jekyll是网站工具, serve就是运行, 也就是把这个网站运行起来, 然后浏览器就可以访问了。
+
+4.碰到环境难题, 调研gem, 通过搜索, 发现gem是ruby的一个包管理工具, 在安装gem之前, 得安装
+ruby环境。因为我用的笔记本是windows, 开始入坑ruby的各种纠结的环境问题。先下载ruby,选了
+最新版本进行下载, 完了之后, 开始安装rubygems, 也安装好了, 一切看起来是非常顺利。
+
+5.遇到了执行问题, 运行gem install bundler jekyll, 安装也ok。运行bundle exec jekyll serve
+开始语法报错，这是什么情况? 怎么会语法报错呢?又重新卸载, 安装了下低的版本, 不是包装不上就是
+下载第三方软件下不下来，其中有一个库ffi, 死活下不下来。因为我换了rubychina的镜像, 说是找不到,
+换回官方的下载地址又访问不了, 又折腾了好几个小时。
+
+6.准备放弃, 柳暗花明又一村, 通过各种搜索，有一种叫做rvm的工具，可以进行ruby的版本管理。这种类似的工具，
+我以前好像用过, 对了, 叫做nvm, 也就是node的版本管理工具, 感觉rvm和nvm非常非常像, 就像是一个模子里面
+出来的。当时，我是用nvm下载node_modules的环境, 也是node版本问题, 后来修改到官方推荐的版本后, 最终修复
+了node的版本问题。说干就干, 开始在windows上安装rvm, 说来也奇怪, rvm在windows上就是安装不上去, 也是
+各种报错, 又开始放弃了, 仔细阅读了下rvm的介绍, 基本都是在Linux环境上跑的脚本。无奈之下，转战Linux环境的
+搭建, 服务器开发真心不适合在windows上搭建啊, 搞了一圈各种问题。
+
+7.还好，手上正好有一台Centos服务器, 就是平时用来练手搭环境, 编译项目用的。上来准备安装yum install ruby,
+结果发现系统已经安装好了ruby, 然后再安装rubygems, 结果也发现安装好了, 那正好。这下环境都有，果然还是Linux
+方便, 直接运行gem install bundler jekyll, 结果, 提示ruby版本不够。这里, 我要吐槽一下jekyll, 在windows上
+安装的时候怎么不提示啥呢, 除了语法报错, 啥都没有, 这里我猜测人家可能也是Linux环境, 还有一个就是文档不全, 所以，
+作为服务器开发人员, 最好能在Linux上进行环境搭建最好, windows上折腾真的很麻烦, 网站打不开不说, 遇到问题, 搜不到
+相关的解决方案。
+
+8.重新启程, 搞定了ruby环境, 有了之前的趟坑精力，这次就直接安装rvm, rvm在Linux上下载不下来，我先在windows上下载
+好, 然后传上去, 最后搞定了rvm的安装。接下来升级ruby到ruby-2.6, 因为刚才提示说至少得ruby2.6的版本。升级到ruby2.6
+之后, 又运行gem install bundler jekyll, 然后提示bundler版本不足。这，感觉就像连环锁，一环套一环啊, 这个时候
+都快下班了, 晚上回去再弄。
+
+9.开始更新bundler版本, 说是要运行gem update --system, 然后我把bundler升级到了3.4.1，升级到更高的版本了, 然后
+用bundler安装了一个库，又提示ruby版本不足, 需要ruby2.7, 这下无语了，刚才提示干嘛去了, 不是说好ruby2.6就可以了么,
+然后用rvm uninstall ruby2.6, rvm install ruby2.7, 这下ruby版本也好了。安装bundler第三方库，也好了。重新运行
+gem install bundler jekyll, 时间很长，起身转了一下，回来发现都下载好了。
+
+10.网站端口还有主机问题, bundle exec jekyll serve直接默认以4000的端口和本地的地址启动的, curl localhost:4000
+有返回正常网页,总不能在Linux里面查看网页效果吧。思索如何解决,外网访问问题以及如何用指定端口和host启动。发现以localhost
+启动的网站在外网是不能访问的。
+
+11.解决外网访问以及端口和主机地址问题, bundle exec jekyll serve --port 4000 --host 0.0.0.0, 这样指定了端口和
+主机, host是4个0, 这样外网可以访问, 我开了下防火墙, 这样在浏览器上也可以直接访问网页信息了, 搞定。
+
+12.代码同步和修改生效的问题, 因为我买的是jetbrain的IDE, 他有自动同步网页代码到远程Linux的工具，所以可以很快同步代码
+到远程的Linux服务器, bundle exec jekyll serve运行起来的网站, 只要网页有修改就自动热更新了, 很方便, 改完之后
+ctrl+f5强制刷新, 就可以看到网页界面了。
 
 
 
 > ### 总结
 > 小小的一个网站搭建，经历这么长的一个过程, 看来平时还是动手少了。所以，平时要多想，多看文档，思考问题的方案，重新反复折腾
 > 问题，这样有助于提高动手能力。
-
 
