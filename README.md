@@ -1,6 +1,2 @@
----
-layout: page
-title: 关于
-permalink: /about/
----
-这是一个程序员的技术博客。
+大家好，我是devin，欢迎来到我的技术博客。
+https://devin7788.github.io/
